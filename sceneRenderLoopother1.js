@@ -981,8 +981,8 @@ if (window.gameLevelSlot[id] !== undefined) {
 
 function gameOver()
 {
-console.log(metersToKilometers(window.appState['totalDistance']));
-if(metersToKilometers(window.appState['totalDistance']) > 1)
+console.log(window.appState['totalDistance']);
+if(metersToKilometers(window.appState['totalDistance']) > 1000)
 {
 if (window.onPlayerDeath) window.onPlayerDeath();
 
