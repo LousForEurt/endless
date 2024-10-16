@@ -981,7 +981,90 @@ if (window.gameLevelSlot[id] !== undefined) {
 
 function gameOver()
 {
-  
+if(metersToKilometers(window.appState['totalDistance']) > 1)
+{
+if (window.onPlayerDeath) window.onPlayerDeath();
+
+
+scene.getNodeByID('bulletContainer').setEnabled(false);
+  if(window.appUIState['soundPlay'] == true)
+  {
+window.sounds['bg'].stop();
+window.sounds['run'].stop();
+window.sounds['run'].stop();
+}
+//window.scene.getAnimationGroupByName("Run").stop();
+window.scene.getAnimationGroupByName("A_Run_F").speedRatio = 0.0;
+window.scene.getAnimationGroupByName("A_Run_L").speedRatio = 0.0;
+window.scene.getAnimationGroupByName("A_Run_R").speedRatio = 0.0;
+window.scene.getNodeByName("player").position.y = 0;
+
+if(window.appState['playerFallDirection'] == 1)
+{
+scene.getAnimationGroupByName("A_Dead_B").goToFrame(0);
+scene.getAnimationGroupByName("A_Dead_B").play();
+scene.getAnimationGroupByName("A_Dead_B").speedRatio = 0.7;
+scene.getAnimationGroupByName("A_Dead_B").loopAnimation = false;
+}
+
+if(window.appState['playerFallDirection'] == 2)
+{
+scene.getAnimationGroupByName("A_Dead_F").goToFrame(0);
+scene.getAnimationGroupByName("A_Dead_F").play();
+scene.getAnimationGroupByName("A_Dead_F").speedRatio = 0.9;
+scene.getAnimationGroupByName("A_Dead_F").loopAnimation = false;
+}
+
+
+window.appState['playerFallAnimPlay'] = 1;
+window.stateDeath = 1;
+
+//document.getElementById('gameOverContainer').style.display='block';
+
+//DISABLING ANIMATIONS
+while (scene.activeCamera.animations.length > 0) {
+   scene.activeCamera.animations.splice(0, 1);
+}
+// console.log(window.appState['playerFallDirection']);
+if(window.appState['playerFallDirection'] != 0)
+{
+let positionAnimation = new BABYLON.Animation("cameraDeadAnimation", "position", 100, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+///
+let positionKeys = [];
+positionKeys.push({ frame: 0, value: scene.activeCamera.position.clone() });
+if(window.appState['playerFallDirection'] == 1) positionKeys.push({ frame: 100, value: new BABYLON.Vector3(scene.activeCamera.position.x * 1.75, 2, scene.activeCamera.position.z - 0.5) });
+if(window.appState['playerFallDirection'] == 2) positionKeys.push({ frame: 100, value: new BABYLON.Vector3(scene.activeCamera.position.x * 1.75, 2, scene.activeCamera.position.z + 2) });
+positionAnimation.setKeys(positionKeys);
+let easingFunctionPosition = new BABYLON.QuadraticEase();
+easingFunctionPosition.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEINOUT);
+positionAnimation.setEasingFunction(easingFunctionPosition);
+scene.activeCamera.animations.push(positionAnimation);
+scene.beginAnimation(scene.activeCamera, 0, 100, false);
+//PARTICLES FX
+window.particleSystem.emitter = scene.getNodeByName("player").position.clone();
+window.particleSystem.start();
+}
+
+setTimeout(function(){
+
+
+//openLevels(1);
+appLevelEnd();
+
+
+if(window.appUIState['soundPlay'] == true){
+   window.sounds['menu'].stop();
+   window.sounds['menu'].play();
+}
+
+//level1.disable();
+//level2.disable();
+//level3.disable();
+
+}, 2000);
+
+
+}
 }
 
 
