@@ -1,4 +1,4 @@
-
+//v1
 function sceneRenderLoop(){
 let delta = window.appState['timeDelta'];
 window.scene.render();
@@ -982,7 +982,8 @@ if (window.gameLevelSlot[id] !== undefined) {
 function gameOver()
 {
 console.log(window.appState['totalDistance']);
-if(metersToKilometers(window.appState['totalDistance']) > 1000)
+console.log(metersToKilometers(window.appState['totalDistance']) > 1);
+if(metersToKilometers(window.appState['totalDistance']) > 1)
 {
 if (window.onPlayerDeath) window.onPlayerDeath();
 
