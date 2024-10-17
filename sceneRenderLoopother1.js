@@ -1,4 +1,4 @@
-//v2
+//v3
 function sceneRenderLoop(){
 let delta = window.appState['timeDelta'];
 window.scene.render();
@@ -1489,12 +1489,12 @@ scene.getMeshByID('coin_' + id + '_' + currentSlotTemp).position.z < 0.6
 }
 
 //MAGNETING
-if (i > 5 && i < 6 + window.appState['superMode3Distance'] && window.appState['superMode3'] == 1 && scene.getMeshByID('coin_' + id + '_' + currentSlotTemp).magneted == 0)
-{
+//if (i > 5 && i < 6 + window.appState['superMode3Distance'] && window.appState['superMode3'] == 1 && scene.getMeshByID('coin_' + id + '_' + currentSlotTemp).magneted == 0)
+//{
+//scene.getMeshByID('coin_' + id + '_' + currentSlotTemp).magneted = 1;
+//}
+
 scene.getMeshByID('coin_' + id + '_' + currentSlotTemp).magneted = 1;
-}
-
-
 
 //
 if (scene.getMeshByID('coin_' + id + '_' + currentSlotTemp).magneted == 1 && i>5 && i< 6 + window.appState['superMode3Distance'] && scene.getMeshByID('coin_' + id + '_' + currentSlotTemp).collected == 0)
